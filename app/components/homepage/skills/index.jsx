@@ -2,6 +2,7 @@
 
 import { skillsData } from "@/utils/data/skills";
 import { skillsImage } from "@/utils/skill-image";
+import UXExpertise from "./ux-expertise";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
@@ -48,6 +49,9 @@ function Skills() {
               <div className="w-24 md:w-48"></div>
             </Marquee>
           </div>
+
+          {/* UX Design Expertise Section */}
+          <UXExpertise />
         </div>
       </div>
     </div>
