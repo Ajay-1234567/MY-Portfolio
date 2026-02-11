@@ -2,6 +2,7 @@ import { personalData } from "@/utils/data/personal-data";
 import ContactForm from "./contact-form";
 import { MdAlternateEmail } from "react-icons/md";
 import { BiLogoLinkedin } from "react-icons/bi";
+import Link from "next/link";
 
 function ContactSection() {
   return (
@@ -20,7 +21,7 @@ function ContactSection() {
               </p>
 
               <div className="space-y-4">
-                <div className="flex items-center gap-4 group">
+                <Link href={`mailto:${personalData.email}`} className="flex items-center gap-4 group">
                   <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center border border-orange-100 shadow-sm transition-all group-hover:scale-110">
                     <MdAlternateEmail className="text-orange-500" size={24} />
                   </div>
@@ -28,8 +29,8 @@ function ContactSection() {
                     <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">Email Me</p>
                     <p className="text-lg font-bold text-gray-900">{personalData.email}</p>
                   </div>
-                </div>
-                <div className="flex items-center gap-4 group">
+                </Link>
+                <Link href={personalData.linkedIn} target="_blank" className="flex items-center gap-4 group">
                   <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center border border-orange-100 shadow-sm transition-all group-hover:scale-110">
                     <BiLogoLinkedin className="text-orange-500" size={24} />
                   </div>
@@ -37,7 +38,7 @@ function ContactSection() {
                     <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">LinkedIn</p>
                     <p className="text-lg font-bold text-gray-900">Connect with me</p>
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
 
