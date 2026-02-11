@@ -6,7 +6,7 @@ import Marquee from "react-fast-marquee";
 
 function ToolLogos() {
     // Select a few key tools to display as a sliding marquee in the hero
-    const featuredTools = ["Figma", "Adobe XD", "Photoshop", "Illustrator", "Sketch", "After Effects", "Framer", "Miro"];
+    const featuredTools = ["Figma", "Adobe XD", "Adobe Photoshop", "Adobe Illustrator", "Sketch", "After Effects", "Framer", "Miro", "Vercel"];
 
     return (
         <div className="py-12 border-t border-gray-100 mt-12">

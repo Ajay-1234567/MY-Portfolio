@@ -1,9 +1,10 @@
 export const skillsData = [
   'Figma',
   'Canva',
-  'Photoshop',
+  'Adobe Photoshop',
   'Adobe Illustrator',
   'Logo Design',
   'Adobe XD',
-  'Miro'
+  'Miro',
+  'Vercel'
 ]

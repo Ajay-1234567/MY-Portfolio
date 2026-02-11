@@ -29,7 +29,7 @@ function Skills() {
               {skillsData.map((skill, id) => {
                 const skillImage = skillsImage(skill);
                 return (
-                  <div key={id} className="flex items-center gap-4 px-12 transition-all duration-500 cursor-default">
+                  <div key={id} className="flex items-center gap-6 px-16 transition-all duration-500 cursor-default">
                     {skillImage?.src && (
                       <div className="h-10 w-10 relative">
                         <Image
