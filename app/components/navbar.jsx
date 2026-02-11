@@ -1,44 +1,35 @@
-// @flow strict
-import Link from "next/link";
+"use client";
 
+import Link from 'next/link';
 
 function Navbar() {
   return (
-    <nav className="bg-transparent">
-      <div className="flex items-center justify-between py-5">
-        <div className="flex flex-shrink-0 items-center">
-          <Link
-            href="/"
-            className=" text-[#16f2b3] text-3xl font-bold">
-            ABU SAID
+    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+      <div className="container mx-auto px-4 py-6">
+        <div className="bg-white/70 backdrop-blur-xl border border-white/20 rounded-full px-8 py-4 flex items-center justify-between shadow-sm">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2 group">
+            <span className="text-xl font-bold tracking-tighter text-gray-900 group-hover:text-orange-500 transition-colors">AJAY<span className="text-orange-500">.</span></span>
           </Link>
-        </div>
 
-        <ul className="mt-4 flex h-screen max-h-0 w-full flex-col items-start text-sm opacity-0 md:mt-0 md:h-auto md:max-h-screen md:w-auto md:flex-row md:space-x-1 md:border-0 md:opacity-100" id="navbar-default">
-          <li>
-            <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#about">
-              <div className="text-sm text-white transition-colors duration-300 hover:text-pink-600">ABOUT</div>
+          {/* Nav Links */}
+          <div className="hidden md:flex items-center gap-10">
+            <Link href="#about" className="text-sm font-semibold text-gray-600 hover:text-orange-500 transition-colors">About</Link>
+            <Link href="#projects" className="text-sm font-semibold text-gray-600 hover:text-orange-500 transition-colors">Case Studies</Link>
+            <Link href="#contact" className="text-sm font-semibold text-gray-600 hover:text-orange-500 transition-colors">Contact</Link>
+          </div>
+
+
+          <div className="flex items-center gap-4">
+            <Link href="#contact" className="bg-gray-900 text-white px-8 py-3 rounded-full text-sm font-bold hover:bg-orange-600 hover:scale-105 active:scale-95 transition-all shadow-md">
+              Hire Me
             </Link>
-          </li>
-          <li>
-            <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#experience"><div className="text-sm text-white transition-colors duration-300 hover:text-pink-600">EXPERIENCE</div></Link>
-          </li>
-          <li>
-            <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#skills"><div className="text-sm text-white transition-colors duration-300 hover:text-pink-600">SKILLS</div></Link>
-          </li>
-          <li>
-            <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#education"><div className="text-sm text-white transition-colors duration-300 hover:text-pink-600">EDUCATION</div></Link>
-          </li>
-          <li>
-            <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/blog"><div className="text-sm text-white transition-colors duration-300 hover:text-pink-600">BLOGS</div></Link>
-          </li>
-          <li>
-            <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#projects"><div className="text-sm text-white transition-colors duration-300 hover:text-pink-600">PROJECTS</div></Link>
-          </li>
-        </ul>
+          </div>
+
+        </div>
       </div>
     </nav>
   );
-};
+}
 
 export default Navbar;

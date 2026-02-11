@@ -1,41 +1,30 @@
-// @flow strict
+import { personalData } from '@/utils/data/personal-data';
 import Link from 'next/link';
-import { CgGitFork } from "react-icons/cg";
-import { IoStar } from "react-icons/io5";
+import { BiLogoLinkedin } from "react-icons/bi";
 
 function Footer() {
   return (
-    <div className="relative border-t bg-[#0d1224] border-[#353951] text-white">
-      <div className="mx-auto px-6 sm:px-12 lg:max-w-[70rem] xl:max-w-[76rem] 2xl:max-w-[92rem] py-6 lg:py-10">
-        <div className="flex justify-center -z-40">
-          <div className="absolute top-0 h-[1px] w-1/2  bg-gradient-to-r from-transparent via-violet-500 to-transparent"></div>
-        </div>
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          <p className="text-sm">
-            © Developer Portfolio by <Link target="_blank" href="https://www.linkedin.com/in/abu-said-bd/" className="text-[#16f2b3]">Abu Said</Link>
-          </p>
-          <div className="flex items-center gap-5">
-            <Link
-              target="_blank"
-              href="https://github.com/said7388/developer-portfolio"
-              className="flex items-center gap-2 uppercase hover:text-[#16f2b3]"
-            >
-              <IoStar />
-              <span>Star</span>
+    <footer className="bg-gray-50 border-t border-gray-200 py-12">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="text-center md:text-left">
+            <h2 className="text-2xl font-black text-gray-900 tracking-tight mb-2">AJAY.</h2>
+            <p className="text-gray-500 font-medium">© {new Date().getFullYear()} Designed & Built by Ajay Kumar</p>
+          </div>
+
+          <div className="flex items-center gap-6">
+            <Link href={personalData.linkedIn} target="_blank" className="text-gray-400 hover:text-orange-500 transition-colors">
+              <BiLogoLinkedin size={28} />
             </Link>
-            <Link
-              target="_blank"
-              href="https://github.com/said7388/developer-portfolio/fork"
-              className="flex items-center gap-2 uppercase hover:text-[#16f2b3]"
-            >
-              <CgGitFork />
-              <span>Fork</span>
-            </Link>
+          </div>
+
+          <div className="text-gray-400 text-sm font-bold uppercase tracking-widest">
+            UI/UX PORTFOLIO
           </div>
         </div>
       </div>
-    </div >
+    </footer>
   );
-};
+}
 
 export default Footer;

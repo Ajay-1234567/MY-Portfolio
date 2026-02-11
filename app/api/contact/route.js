@@ -7,10 +7,10 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   host: 'smtp.gmail.com',
   port: 587,
-  secure: false, 
+  secure: false,
   auth: {
     user: process.env.EMAIL_ADDRESS,
-    pass: process.env.GMAIL_PASSKEY, 
+    pass: process.env.GMAIL_PASSKEY,
   },
 });
 
@@ -48,16 +48,16 @@ const generateEmailTemplate = (name, email, userMessage) => `
 // Helper function to send an email via Nodemailer
 async function sendEmail(payload, message) {
   const { name, email, message: userMessage } = payload;
-  
+
   const mailOptions = {
-    from: "Portfolio", 
-    to: process.env.EMAIL_ADDRESS, 
-    subject: `New Message From ${name}`, 
-    text: message, 
-    html: generateEmailTemplate(name, email, userMessage), 
-    replyTo: email, 
+    from: "Portfolio",
+    to: process.env.EMAIL_ADDRESS,
+    subject: `New Message From ${name}`,
+    text: message,
+    html: generateEmailTemplate(name, email, userMessage),
+    replyTo: email,
   };
-  
+
   try {
     await transporter.sendMail(mailOptions);
     return true;
@@ -73,33 +73,31 @@ export async function POST(request) {
     const { name, email, message: userMessage } = payload;
     const token = process.env.TELEGRAM_BOT_TOKEN;
     const chat_id = process.env.TELEGRAM_CHAT_ID;
-
-    // Validate environment variables
-    if (!token || !chat_id) {
-      return NextResponse.json({
-        success: false,
-        message: 'Telegram token or chat ID is missing.',
-      }, { status: 400 });
-    }
+    const emailAddress = process.env.EMAIL_ADDRESS;
+    const gmailPasskey = process.env.GMAIL_PASSKEY;
 
     const message = `New message from ${name}\n\nEmail: ${email}\n\nMessage:\n\n${userMessage}\n\n`;
 
-    // Send Telegram message
-    const telegramSuccess = await sendTelegramMessage(token, chat_id, message);
+    let telegramSuccess = false;
+    if (token && chat_id) {
+      telegramSuccess = await sendTelegramMessage(token, chat_id, message);
+    }
 
-    // Send email
-    const emailSuccess = await sendEmail(payload, message);
+    let emailSuccess = false;
+    if (emailAddress && gmailPasskey) {
+      emailSuccess = await sendEmail(payload, message);
+    }
 
-    if (telegramSuccess && emailSuccess) {
+    if (telegramSuccess || emailSuccess) {
       return NextResponse.json({
         success: true,
-        message: 'Message and email sent successfully!',
+        message: 'Message sent successfully!',
       }, { status: 200 });
     }
 
     return NextResponse.json({
       success: false,
-      message: 'Failed to send message or email.',
+      message: 'Failed to send message. Please ensure environment variables are configured correctly.',
     }, { status: 500 });
   } catch (error) {
     console.error('API Error:', error.message);

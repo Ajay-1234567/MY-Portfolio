@@ -1,68 +1,64 @@
 // @flow strict
 
 import * as React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { FiArrowRight } from 'react-icons/fi';
 
 function ProjectCard({ project }) {
-
   return (
-    <div className="from-[#0d1224] border-[#1b2c68a0] relative rounded-lg border bg-gradient-to-r to-[#0a0d37] w-full">
-      <div className="flex flex-row">
-        <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-pink-500 to-violet-600"></div>
-        <div className="h-[1px] w-full bg-gradient-to-r from-violet-600 to-transparent"></div>
-      </div>
-      <div className="px-4 lg:px-8 py-3 lg:py-5 relative">
-        <div className="flex flex-row space-x-1 lg:space-x-2 absolute top-1/2 -translate-y-1/2">
-          <div className="h-2 w-2 lg:h-3 lg:w-3 rounded-full bg-red-400"></div>
-          <div className="h-2 w-2 lg:h-3 lg:w-3 rounded-full bg-orange-400"></div>
-          <div className="h-2 w-2 lg:h-3 lg:w-3 rounded-full bg-green-200"></div>
+    <div className="group bg-white rounded-3xl p-5 border border-gray-100 hover:border-orange-300 transition-all duration-500 hover:shadow-2xl hover:shadow-orange-500/10 overflow-hidden hover:-translate-y-2">
+      {/* Project Image Container with Gradient Border Effect */}
+      <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-orange-500 to-pink-500 p-0.5 mb-7">
+        <div className="w-full h-full bg-gray-50 rounded-2xl overflow-hidden">
+          <Image
+            src={project.image}
+            alt={project.name}
+            fill
+            className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
         </div>
-        <p className="text-center ml-3 text-[#16f2b3] text-base lg:text-xl">
-          {project.name}
-        </p>
+
+        {/* Hover Overlay with Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
       </div>
-      <div className="overflow-hidden border-t-[2px] border-indigo-900 px-4 lg:px-8 py-4 lg:py-8">
-        <code className="font-mono text-xs md:text-sm lg:text-base">
-          <div className="blink">
-            <span className="mr-2 text-pink-500">const</span>
-            <span className="mr-2 text-white">project</span>
-            <span className="mr-2 text-pink-500">=</span>
-            <span className="text-gray-400">{'{'}</span>
-          </div>
-          <div>
-            <span className="ml-4 lg:ml-8 mr-2 text-white">name:</span>
-            <span className="text-gray-400">{`'`}</span>
-            <span className="text-amber-300">{project.name}</span>
-            <span className="text-gray-400">{`',`}</span>
+
+      <div className="px-3 pb-3">
+        {/* Category/Role with Enhanced Styling */}
+        <div className="flex items-center gap-2 mb-4">
+          <span className="w-2 h-2 rounded-full bg-gradient-to-r from-orange-500 to-pink-500"></span>
+          <span className="text-[11px] font-black uppercase tracking-[0.15em] text-gray-400">
+            {project.role}
+          </span>
+        </div>
+
+        {/* Title & Description with Better Hierarchy */}
+        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 group-hover:bg-gradient-to-r group-hover:from-orange-500 group-hover:to-pink-500 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 tracking-tight leading-snug">
+          {project.name}
+        </h3>
+        <p className="text-gray-600 text-base leading-relaxed mb-7 line-clamp-2 font-medium">
+          {project.description}
+        </p>
+
+        {/* Footer: Tools & Link - Simplified without numbers */}
+        <div className="flex items-center justify-between pt-5 border-t border-gray-100">
+          <div className="flex gap-2 flex-wrap">
+            {project.tools.slice(0, 3).map((tool, index) => (
+              <span key={index} className="text-[10px] font-bold text-gray-500 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
+                {tool}
+              </span>
+            ))}
           </div>
 
-          <div className="ml-4 lg:ml-8 mr-2">
-            <span className=" text-white">tools:</span>
-            <span className="text-gray-400">{` ['`}</span>
-            {
-              project.tools.map((tag, i) => (
-                <React.Fragment key={i}>
-                  <span className="text-amber-300">{tag}</span>
-                  {
-                    project.tools?.length - 1 !== i &&
-                    <span className="text-gray-400">{`', '`}</span>
-                  }
-                </React.Fragment>
-              ))
-            }
-            <span className="text-gray-400">{"],"}</span>
-          </div>
-          <div>
-            <span className="ml-4 lg:ml-8 mr-2 text-white">myRole:</span>
-            <span className="text-orange-400">{project.role}</span>
-            <span className="text-gray-400">,</span>
-          </div>
-          <div className="ml-4 lg:ml-8 mr-2">
-            <span className="text-white">Description:</span>
-            <span className="text-cyan-400">{' ' + project.description}</span>
-            <span className="text-gray-400">,</span>
-          </div>
-          <div><span className="text-gray-400">{`};`}</span></div>
-        </code>
+          <Link
+            href={project.demo || '#'}
+            target="_blank"
+            className="w-11 h-11 rounded-full bg-gradient-to-br from-gray-900 to-gray-700 text-white flex items-center justify-center group-hover:from-orange-500 group-hover:to-pink-500 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-orange-500/30 transition-all duration-300"
+          >
+            <FiArrowRight size={18} className="group-hover:rotate-45 transition-transform duration-300" />
+          </Link>
+        </div>
       </div>
     </div>
   );

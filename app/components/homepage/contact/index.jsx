@@ -1,89 +1,56 @@
-// @flow strict
-import { personalData } from '@/utils/data/personal-data';
-import Link from 'next/link';
-import { BiLogoLinkedin } from "react-icons/bi";
-import { CiLocationOn } from "react-icons/ci";
-import { FaFacebook, FaStackOverflow } from 'react-icons/fa';
-import { FaXTwitter } from "react-icons/fa6";
-import { IoLogoGithub, IoMdCall } from "react-icons/io";
+import { personalData } from "@/utils/data/personal-data";
+import ContactForm from "./contact-form";
 import { MdAlternateEmail } from "react-icons/md";
-import ContactForm from './contact-form';
+import { BiLogoLinkedin } from "react-icons/bi";
 
 function ContactSection() {
   return (
-    <div id="contact" className="my-12 lg:my-16 relative mt-24 text-white">
-      <div className="hidden lg:flex flex-col items-center absolute top-24 -right-8">
-        <span className="bg-[#1a1443] w-fit text-white rotate-90 p-2 px-5 text-xl rounded-md">
-          CONTACT
-        </span>
-        <span className="h-36 w-[2px] bg-[#1a1443]"></span>
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-        <ContactForm />
-        <div className="lg:w-3/4 ">
-          <div className="flex flex-col gap-5 lg:gap-9">
-            <p className="text-sm md:text-xl flex items-center gap-3">
-              <MdAlternateEmail
-                className="bg-[#8b98a5] p-2 rounded-full hover:bg-[#16f2b3] hover:scale-110 transition-all duration-300 text-gray-800 cursor-pointer"
-                size={36}
-              />
-              <span>{personalData.email}</span>
-            </p>
-            <p className="text-sm md:text-xl flex items-center gap-3">
-              <IoMdCall
-                className="bg-[#8b98a5] p-2 rounded-full hover:bg-[#16f2b3] hover:scale-110 transition-all duration-300 text-gray-800 cursor-pointer"
-                size={36}
-              />
-              <span>
-                {personalData.phone}
-              </span>
-            </p>
-            <p className="text-sm md:text-xl flex items-center gap-3">
-              <CiLocationOn
-                className="bg-[#8b98a5] p-2 rounded-full hover:bg-[#16f2b3] hover:scale-110 transition-all duration-300 text-gray-800 cursor-pointer"
-                size={36}
-              />
-              <span>
-                {personalData.address}
-              </span>
-            </p>
-          </div>
-          <div className="mt-8 lg:mt-16 flex items-center gap-5 lg:gap-10">
-            <Link target="_blank" href={personalData.github}>
-              <IoLogoGithub
-                className="bg-[#8b98a5] p-3 rounded-full hover:bg-[#16f2b3] hover:scale-110 transition-all duration-300 text-gray-800 cursor-pointer"
-                size={48}
-              />
-            </Link>
-            <Link target="_blank" href={personalData.linkedIn}>
-              <BiLogoLinkedin
-                className="bg-[#8b98a5] p-3 rounded-full hover:bg-[#16f2b3] hover:scale-110 transition-all duration-300 text-gray-800 cursor-pointer"
-                size={48}
-              />
-            </Link>
-            <Link target="_blank" href={personalData.twitter}>
-              <FaXTwitter
-                className="bg-[#8b98a5] p-3 rounded-full hover:bg-[#16f2b3] hover:scale-110 transition-all duration-300 text-gray-800 cursor-pointer"
-                size={48}
-              />
-            </Link>
-            <Link target="_blank" href={personalData.stackOverflow}>
-              <FaStackOverflow
-                className="bg-[#8b98a5] p-3 rounded-full hover:bg-[#16f2b3] hover:scale-110 transition-all duration-300 text-gray-800 cursor-pointer"
-                size={48}
-              />
-            </Link>
-            <Link target="_blank" href={personalData.facebook}>
-              <FaFacebook
-                className="bg-[#8b98a5] p-3 rounded-full hover:bg-[#16f2b3] hover:scale-110 transition-all duration-300 text-gray-800 cursor-pointer"
-                size={48}
-              />
-            </Link>
+    <div id="contact" className="py-16 lg:py-24 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="max-w-6xl mx-auto rounded-3xl bg-gradient-to-br from-gray-50 to-orange-50 border border-orange-100 p-8 md:p-12 shadow-inner">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+            {/* Contact Text */}
+            <div className="space-y-8">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+                Let's <span className="bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">Connect</span> and Create.
+              </h2>
+              <p className="text-lg text-gray-600 leading-relaxed font-medium">
+                I'm currently looking for new opportunities. My inbox is always open. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 group">
+                  <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center border border-orange-100 shadow-sm transition-all group-hover:scale-110">
+                    <MdAlternateEmail className="text-orange-500" size={24} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">Email Me</p>
+                    <p className="text-lg font-bold text-gray-900">{personalData.email}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 group">
+                  <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center border border-orange-100 shadow-sm transition-all group-hover:scale-110">
+                    <BiLogoLinkedin className="text-orange-500" size={24} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">LinkedIn</p>
+                    <p className="text-lg font-bold text-gray-900">Connect with me</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Form */}
+            <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
+              <ContactForm />
+            </div>
+
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default ContactSection;

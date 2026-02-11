@@ -35,47 +35,52 @@ function ContactForm() {
 
     try {
       setIsLoading(true);
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_APP_URL}/api/contact`,
-        userInput
-      );
+      const apiUrl = process.env.NEXT_PUBLIC_APP_URL
+        ? `${process.env.NEXT_PUBLIC_APP_URL}/api/contact`
+        : "/api/contact";
 
-      toast.success("Message sent successfully!");
+      const res = await axios.post(apiUrl, userInput);
+
+      toast.success(res.data.message || "Message sent successfully!");
       setUserInput({
         name: "",
         email: "",
         message: "",
       });
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      const errorMessage = error?.response?.data?.message || error?.message || "Something went wrong. Please try again.";
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     };
   };
 
   return (
-    <div>
-      <p className="font-medium mb-5 text-[#16f2b3] text-xl uppercase">Contact with me</p>
-      <div className="max-w-3xl text-white rounded-lg border border-[#464c6a] p-3 lg:p-5">
-        <p className="text-sm text-[#d3d8e8]">{"If you have any questions or concerns, please don't hesitate to contact me. I am open to any work opportunities that align with my skills and interests."}</p>
-        <div className="mt-6 flex flex-col gap-4">
+    <div className="w-full">
+      <div className="bg-white rounded-lg border border-gray-200 p-6 md:p-8">
+        <p className="text-base md:text-lg text-gray-600 mb-6">
+          {"If you have any questions or concerns, please don't hesitate to contact me. I am open to any work opportunities that align with my skills and interests."}
+        </p>
+        <form className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <label className="text-base">Your Name: </label>
+            <label className="text-sm font-medium text-gray-700">Your Name:</label>
             <input
-              className="bg-[#10172d] w-full border rounded-md border-[#353a52] focus:border-[#16f2b3] ring-0 outline-0 transition-all duration-300 px-3 py-2"
+              className="w-full border rounded-lg border-gray-300 focus:border-gray-900 focus:ring-2 focus:ring-gray-900 focus:ring-opacity-20 outline-none transition-all duration-300 px-4 py-3 text-gray-900"
               type="text"
               maxLength="100"
               required={true}
               onChange={(e) => setUserInput({ ...userInput, name: e.target.value })}
               onBlur={checkRequired}
               value={userInput.name}
+              placeholder="Enter your name"
+              suppressHydrationWarning={true}
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-base">Your Email: </label>
+            <label className="text-sm font-medium text-gray-700">Your Email:</label>
             <input
-              className="bg-[#10172d] w-full border rounded-md border-[#353a52] focus:border-[#16f2b3] ring-0 outline-0 transition-all duration-300 px-3 py-2"
+              className="w-full border rounded-lg border-gray-300 focus:border-gray-900 focus:ring-2 focus:ring-gray-900 focus:ring-opacity-20 outline-none transition-all duration-300 px-4 py-3 text-gray-900"
               type="email"
               maxLength="100"
               required={true}
@@ -85,44 +90,48 @@ function ContactForm() {
                 checkRequired();
                 setError({ ...error, email: !isValidEmail(userInput.email) });
               }}
+              placeholder="Enter your email"
+              suppressHydrationWarning={true}
             />
-            {error.email && <p className="text-sm text-red-400">Please provide a valid email!</p>}
+            {error.email && <p className="text-sm text-red-500">Please provide a valid email!</p>}
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-base">Your Message: </label>
+            <label className="text-sm font-medium text-gray-700">Your Message:</label>
             <textarea
-              className="bg-[#10172d] w-full border rounded-md border-[#353a52] focus:border-[#16f2b3] ring-0 outline-0 transition-all duration-300 px-3 py-2"
+              className="w-full border rounded-lg border-gray-300 focus:border-gray-900 focus:ring-2 focus:ring-gray-900 focus:ring-opacity-20 outline-none transition-all duration-300 px-4 py-3 text-gray-900 resize-none"
               maxLength="500"
               name="message"
               required={true}
               onChange={(e) => setUserInput({ ...userInput, message: e.target.value })}
               onBlur={checkRequired}
-              rows="4"
+              rows="5"
               value={userInput.message}
+              placeholder="Enter your message"
             />
           </div>
-          <div className="flex flex-col items-center gap-3">
-            {error.required && <p className="text-sm text-red-400">
-              All fiels are required!
+
+          <div className="flex flex-col gap-3">
+            {error.required && <p className="text-sm text-red-500">
+              All fields are required!
             </p>}
             <button
-              className="flex items-center gap-1 hover:gap-3 rounded-full bg-gradient-to-r from-pink-500 to-violet-600 px-5 md:px-12 py-2.5 md:py-3 text-center text-xs md:text-sm font-medium uppercase tracking-wider text-white no-underline transition-all duration-200 ease-out hover:text-white hover:no-underline md:font-semibold"
+              className="group bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               role="button"
               onClick={handleSendMail}
               disabled={isLoading}
             >
               {
                 isLoading ?
-                <span>Sending Message...</span>:
-                <span className="flex items-center gap-1">
-                  Send Message
-                  <TbMailForward size={20} />
-                </span>
+                  <span>Sending Message...</span> :
+                  <>
+                    <span>Send Message</span>
+                    <TbMailForward className="group-hover:translate-x-1 transition-transform duration-300" size={20} />
+                  </>
               }
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
