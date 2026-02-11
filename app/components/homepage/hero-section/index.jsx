@@ -5,7 +5,6 @@ import { projectsData } from "@/utils/data/projects-data";
 import Link from "next/link";
 import Image from "next/image";
 import { FaPlay, FaCheck, FaDownload } from "react-icons/fa";
-import ToolLogos from "./tool-logos";
 
 function HeroSection() {
   return (
@@ -62,8 +61,6 @@ function HeroSection() {
                 <span className="group-hover:translate-y-1 transition-transform"><FaDownload /></span>
               </Link>
             </div>
-
-            <ToolLogos />
           </div>
 
           {/* Right Column - Profile Photo */}
