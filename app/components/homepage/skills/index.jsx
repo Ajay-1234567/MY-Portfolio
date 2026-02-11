@@ -29,18 +29,22 @@ function Skills() {
               {skillsData.map((skill, id) => {
                 const skillImage = skillsImage(skill);
                 return (
-                  <div key={id} className="flex items-center gap-6 px-16 transition-all duration-500 cursor-default">
-                    {skillImage?.src && (
-                      <div className="h-10 w-10 relative">
-                        <Image
-                          src={skillImage.src}
-                          alt={skill}
-                          fill
-                          className="object-contain"
-                        />
-                      </div>
-                    )}
-                    <span className="text-2xl font-bold text-gray-900 tracking-tighter uppercase">{skill}</span>
+                  <div key={id} className="flex items-center gap-6 px-16 group transition-all duration-300">
+                    <div className="flex flex-col items-center gap-3">
+                      {skillImage?.src && (
+                        <div className="h-16 w-16 relative bg-gray-50 rounded-2xl p-3 shadow-sm border border-gray-100 group-hover:shadow-md group-hover:scale-110 transition-all duration-500">
+                          <Image
+                            src={skillImage.src}
+                            alt={skill}
+                            fill
+                            className="object-contain p-1"
+                          />
+                        </div>
+                      )}
+                      <span className="text-sm font-bold text-gray-400 tracking-widest uppercase group-hover:text-orange-500 transition-colors uppercase whitespace-nowrap">
+                        {skill}
+                      </span>
+                    </div>
                   </div>
                 );
               })}
