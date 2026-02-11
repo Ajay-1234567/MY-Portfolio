@@ -5,6 +5,7 @@ import { projectsData } from "@/utils/data/projects-data";
 import Link from "next/link";
 import Image from "next/image";
 import { FaPlay, FaCheck, FaDownload } from "react-icons/fa";
+import ToolLogos from "./tool-logos";
 
 function HeroSection() {
   return (
@@ -21,7 +22,7 @@ function HeroSection() {
 
             {/* Title with Enhanced Typography */}
             <div>
-              <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-gray-900 leading-[0.85] mb-3">
+              <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-gray-900 leading-[0.85] mb-3 uppercase">
                 Ajay Kumar<span className="text-orange-500">.</span>
               </h1>
               <p className="text-2xl md:text-3xl font-semibold bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
@@ -62,6 +63,7 @@ function HeroSection() {
               </Link>
             </div>
 
+            <ToolLogos />
           </div>
 
           {/* Right Column - Profile Photo */}
