@@ -1,9 +1,22 @@
-// Simplified skill-image.js for UI/UX Designer Portfolio
-// Returns null for all skills - components will handle display with text only
-
 export const skillsImage = (skill) => {
-  // Return null for all skills
-  // The Skills component will display skill names as text
-  // This avoids the need for 75+ SVG icon files
-  return null;
+  const skillID = skill.toLowerCase().replace(/ /g, '-');
+
+  switch (skillID) {
+    case 'figma':
+      return { src: '/skills/figma.svg' };
+    case 'canva':
+      return { src: '/skills/canva.svg' };
+    case 'photoshop':
+      return { src: '/skills/photoshop.svg' };
+    case 'adobe-illustrator':
+    case 'illustrator':
+    case 'logo-design':
+      return { src: '/skills/illustrator.svg' };
+    case 'adobe-xd':
+      return { src: '/skills/adobe-xd.svg' };
+    case 'miro':
+      return { src: '/skills/miro.svg' };
+    default:
+      return null;
+  }
 }
