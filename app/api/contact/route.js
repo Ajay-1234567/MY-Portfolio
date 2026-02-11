@@ -2,18 +2,6 @@ import axios from 'axios';
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
-// Create and configure Nodemailer transporter
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_ADDRESS,
-    pass: process.env.GMAIL_PASSKEY,
-  },
-});
-
 // Helper function to send a message via Telegram
 async function sendTelegramMessage(token, chat_id, message) {
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
@@ -45,36 +33,20 @@ const generateEmailTemplate = (name, email, userMessage) => `
   </div>
 `;
 
-// Helper function to send an email via Nodemailer
-async function sendEmail(payload, message) {
-  const { name, email, message: userMessage } = payload;
-
-  const mailOptions = {
-    from: "Portfolio",
-    to: process.env.EMAIL_ADDRESS,
-    subject: `New Message From ${name}`,
-    text: message,
-    html: generateEmailTemplate(name, email, userMessage),
-    replyTo: email,
-  };
-
-  try {
-    await transporter.sendMail(mailOptions);
-    return true;
-  } catch (error) {
-    console.error('Error while sending email:', error.message);
-    return false;
-  }
-};
-
 export async function POST(request) {
   try {
     const payload = await request.json();
     const { name, email, message: userMessage } = payload;
-    const token = process.env.TELEGRAM_BOT_TOKEN;
-    const chat_id = process.env.TELEGRAM_CHAT_ID;
+
     const emailAddress = process.env.EMAIL_ADDRESS;
     const gmailPasskey = process.env.GMAIL_PASSKEY;
+    const token = process.env.TELEGRAM_BOT_TOKEN;
+    const chat_id = process.env.TELEGRAM_CHAT_ID;
+
+    // Check for missing credentials early
+    if (!emailAddress || !gmailPasskey) {
+      console.error("Missing Email credentials in Environment Variables");
+    }
 
     const message = `New message from ${name}\n\nEmail: ${email}\n\nMessage:\n\n${userMessage}\n\n`;
 
@@ -85,7 +57,28 @@ export async function POST(request) {
 
     let emailSuccess = false;
     if (emailAddress && gmailPasskey) {
-      emailSuccess = await sendEmail(payload, message);
+      // Initialize transporter inside handler to ensure env vars are fresh
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: emailAddress,
+          pass: gmailPasskey,
+        },
+      });
+
+      try {
+        await transporter.sendMail({
+          from: `"Portfolio Contact" <${emailAddress}>`,
+          to: emailAddress,
+          subject: `New Message From ${name}`,
+          text: message,
+          html: generateEmailTemplate(name, email, userMessage),
+          replyTo: email,
+        });
+        emailSuccess = true;
+      } catch (err) {
+        console.error('Nodemailer Error:', err.message);
+      }
     }
 
     if (telegramSuccess || emailSuccess) {
@@ -97,7 +90,7 @@ export async function POST(request) {
 
     return NextResponse.json({
       success: false,
-      message: 'Failed to send message. Please ensure environment variables are configured correctly.',
+      message: 'Failed to send message. Please ensure EMAIL_ADDRESS and GMAIL_PASSKEY are set in Vercel Environment Variables.',
     }, { status: 500 });
   } catch (error) {
     console.error('API Error:', error.message);
