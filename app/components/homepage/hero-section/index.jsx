@@ -4,7 +4,7 @@ import { personalData } from "@/utils/data/personal-data";
 import { projectsData } from "@/utils/data/projects-data";
 import Link from "next/link";
 import Image from "next/image";
-import { FaPlay, FaCheck } from "react-icons/fa";
+import { FaPlay, FaCheck, FaDownload } from "react-icons/fa";
 
 function HeroSection() {
   return (
@@ -51,6 +51,14 @@ function HeroSection() {
               >
                 View Projects
                 <span className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</span>
+              </Link>
+              <Link
+                href={personalData.resume}
+                target='_blank'
+                className="text-gray-900 font-bold text-base flex items-center gap-2 group px-6 py-4 border-2 border-gray-200 rounded-full hover:border-orange-500 hover:text-orange-500 transition-all duration-300"
+              >
+                Download CV
+                <span className="group-hover:translate-y-1 transition-transform"><FaDownload /></span>
               </Link>
             </div>
 
