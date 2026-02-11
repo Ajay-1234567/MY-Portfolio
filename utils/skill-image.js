@@ -5,7 +5,7 @@ export const skillsImage = (skill) => {
     case 'figma':
       return { src: '/skills/figma.svg' };
     case 'canva':
-      return { src: '/skills/canva.svg' };
+      return { src: '/skills/canva-v2.svg' };
     case 'photoshop':
     case 'adobe-photoshop':
       return { src: '/skills/photoshop.svg' };
@@ -15,7 +15,7 @@ export const skillsImage = (skill) => {
     case 'logo-design':
     case 'logo-designer':
     case 'logo':
-      return { src: '/skills/logo-design.svg' };
+      return { src: '/skills/logo-design-v2.svg' };
     case 'adobe-xd':
       return { src: '/skills/adobe-xd.svg' };
     case 'miro':
