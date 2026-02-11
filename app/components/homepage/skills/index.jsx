@@ -12,7 +12,7 @@ function Skills() {
         <div className="max-w-6xl mx-auto">
           {/* Section Title */}
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
-            My Skills & <span className="bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">Tools</span>
+            Skills & <span className="bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">Tools</span>
           </h2>
 
           {/* Sliding Skills Marquee */}
