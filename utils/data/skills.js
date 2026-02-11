@@ -5,8 +5,5 @@ export const skillsData = [
   'Adobe Illustrator',
   'Logo Design',
   'Adobe XD',
-  'Miro',
-  'UX Process',
-  'Wireframing',
-  'Info Architecture'
+  'Miro'
 ]
