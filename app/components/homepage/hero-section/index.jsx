@@ -1,10 +1,9 @@
 "use client";
 
 import { personalData } from "@/utils/data/personal-data";
-import { projectsData } from "@/utils/data/projects-data";
 import Link from "next/link";
 import Image from "next/image";
-import { FaPlay, FaCheck, FaDownload } from "react-icons/fa";
+import { FaDownload } from "react-icons/fa";
 
 function HeroSection() {
   return (
@@ -22,16 +21,16 @@ function HeroSection() {
             {/* Title with Enhanced Typography */}
             <div>
               <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-gray-900 leading-[0.85] mb-3 uppercase">
-                Ajay Kumar<span className="text-orange-500">.</span>
+                {personalData.name}<span className="text-orange-500">.</span>
               </h1>
               <p className="text-2xl md:text-3xl font-semibold bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
-                UI/UX Designer
+                {personalData.designation}
               </p>
             </div>
 
             {/* Professional Tagline */}
             <p className="text-lg md:text-xl text-gray-600 max-w-xl leading-relaxed">
-              Crafting intuitive digital experiences through user-centered design, meticulous research, and pixel-perfect execution. Specialized in mobile app design and end-to-end UX case studies.
+              {personalData.description}
             </p>
 
             {/* CTAs with Enhanced Styling */}
@@ -70,7 +69,7 @@ function HeroSection() {
               <div className="w-full h-full bg-white rounded-[2.3rem] overflow-hidden">
                 <Image
                   src={personalData.profile || '/profile.png'}
-                  alt="Ajay Kumar - UI/UX Designer"
+                  alt={`${personalData.name} - ${personalData.designation}`}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 500px"
@@ -81,14 +80,10 @@ function HeroSection() {
 
             {/* Floating Badge */}
             <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-3 rounded-full shadow-xl border border-gray-100">
-              <p className="text-sm font-bold text-gray-900">UI/UX Designer</p>
+              <p className="text-sm font-bold text-gray-900">{personalData.designation}</p>
             </div>
-
-            {/* Simplified - removed unnecessary placeholder floating cards */}
           </div>
         </div>
-
-
       </div>
     </section>
   );

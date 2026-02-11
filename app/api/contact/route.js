@@ -1,4 +1,3 @@
-// Build Trigger: Verifying Env Vars
 import axios from 'axios';
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
