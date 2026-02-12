@@ -62,7 +62,7 @@ export async function POST(request) {
     console.error("Error sending email:", error);
     return NextResponse.json({
       success: false,
-      message: "Failed to send email. Please try again later."
+      message: `Failed to send email: ${error.message}`
     }, { status: 500 });
   }
 }
