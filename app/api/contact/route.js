@@ -16,7 +16,6 @@ export async function POST(request) {
       }, { status: 500 });
     }
 
-    // Use specific SMTP settings for better reliability
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -58,10 +57,12 @@ export async function POST(request) {
 
   } catch (error) {
     console.error("Error sending email:", error);
-    // Return the actual error message to the client for easier debugging
+    const emailLen = process.env.EMAIL_ADDRESS ? process.env.EMAIL_ADDRESS.length : 0;
+    const passLen = process.env.GMAIL_PASSKEY ? process.env.GMAIL_PASSKEY.length : 0;
+
     return NextResponse.json({
       success: false,
-      message: `Failed: ${error.message}`
+      message: `Failed: ${error.message}. (Debug: User=${emailLen} chars, Pass=${passLen} chars)`
     }, { status: 500 });
   }
 }
