@@ -12,12 +12,15 @@ export async function POST(request) {
     if (!emailAddress || !gmailPasskey) {
       return NextResponse.json({
         success: false,
-        message: "Failed to send message. Please ensure EMAIL_ADDRESS and GMAIL_PASSKEY are set in the environment variables."
+        message: "Env variables missing. Check Vercel settings."
       }, { status: 500 });
     }
 
+    // Use specific SMTP settings for better reliability
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
         user: emailAddress,
         pass: gmailPasskey,
@@ -26,7 +29,7 @@ export async function POST(request) {
 
     const mailOptions = {
       from: emailAddress,
-      to: emailAddress, // Send to self
+      to: emailAddress,
       subject: `New Message from ${name} (${email})`,
       text: `
         Name: ${name}
@@ -55,9 +58,10 @@ export async function POST(request) {
 
   } catch (error) {
     console.error("Error sending email:", error);
+    // Return the actual error message to the client for easier debugging
     return NextResponse.json({
       success: false,
-      message: "Failed to send message due to server error."
+      message: `Failed: ${error.message}`
     }, { status: 500 });
   }
 }
