@@ -6,8 +6,8 @@ export async function POST(request) {
     const payload = await request.json();
     const { name, email, message: userMessage } = payload;
 
-    const emailAddress = process.env.EMAIL_ADDRESS;
-    const gmailPasskey = process.env.GMAIL_PASSKEY;
+    const emailAddress = process.env.EMAIL_ADDRESS?.trim();
+    const gmailPasskey = process.env.GMAIL_PASSKEY?.trim();
 
     if (!emailAddress || !gmailPasskey) {
       return NextResponse.json({
