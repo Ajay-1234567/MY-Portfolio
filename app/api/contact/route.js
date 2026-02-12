@@ -6,8 +6,11 @@ export async function POST(request) {
     const payload = await request.json();
     const { name, email, message: userMessage } = payload;
 
-    const emailAddress = process.env.EMAIL_ADDRESS?.trim();
-    const gmailPasskey = process.env.GMAIL_PASSKEY?.trim();
+    // Aggressively sanitize environment variables to remove hidden characters
+    const sanitizeEnv = (val) => val ? val.replace(/[\r\n\s\u200B-\u200D\uFEFF"']/g, '').trim() : '';
+
+    const emailAddress = sanitizeEnv(process.env.EMAIL_ADDRESS);
+    const gmailPasskey = sanitizeEnv(process.env.GMAIL_PASSKEY);
 
     if (!emailAddress || !gmailPasskey) {
       return NextResponse.json({
@@ -57,12 +60,9 @@ export async function POST(request) {
 
   } catch (error) {
     console.error("Error sending email:", error);
-    const emailLen = process.env.EMAIL_ADDRESS ? process.env.EMAIL_ADDRESS.length : 0;
-    const passLen = process.env.GMAIL_PASSKEY ? process.env.GMAIL_PASSKEY.length : 0;
-
     return NextResponse.json({
       success: false,
-      message: `Failed: ${error.message}. (Debug: User=${emailLen} chars, Pass=${passLen} chars)`
+      message: "Failed to send email. Please try again later."
     }, { status: 500 });
   }
 }
