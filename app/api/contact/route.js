@@ -6,11 +6,9 @@ export async function POST(request) {
     const payload = await request.json();
     const { name, email, message: userMessage } = payload;
 
-    // Aggressively sanitize environment variables to remove hidden characters
-    const sanitizeEnv = (val) => val ? val.replace(/[\r\n\s\u200B-\u200D\uFEFF"']/g, '').trim() : '';
-
-    const emailAddress = sanitizeEnv(process.env.EMAIL_ADDRESS);
-    const gmailPasskey = sanitizeEnv(process.env.GMAIL_PASSKEY);
+    // Simple trim to remove accidental whitespace
+    const emailAddress = process.env.EMAIL_ADDRESS?.trim();
+    const gmailPasskey = process.env.GMAIL_PASSKEY?.trim();
 
     if (!emailAddress || !gmailPasskey) {
       return NextResponse.json({
@@ -20,9 +18,7 @@ export async function POST(request) {
     }
 
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
+      service: 'gmail',
       auth: {
         user: emailAddress,
         pass: gmailPasskey,
